@@ -6,41 +6,56 @@ import UserInput from "@/components/UserInput";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [error, setError] = useState(null)
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setError(null);
     setIsLoading(true);
+
     const formData = new FormData(event.currentTarget);
     const userInput = formData.get('userInput');
-    console.log(userInput);
+    
+    if (!userInput?.trim()) {
+      setError("Please enter a message");
+      setIsLoading(false);
+      return;
+    }
 
     setMessages((prevMessages) => [
       ...prevMessages,
       { role: "User", content: userInput }
     ])
 
-    const response = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ 
-        input: userInput
-      }),
-    });
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          input: userInput
+        }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (response.ok) {
-      console.log(data.text)
-    } else {
-      console.error(data);
+      if (!response.ok) {
+        throw new Error(data?.error || `Server error: ${response.status}.`)
+      }
+
+      if (!data.text) {
+        throw new Error("Error: No response from the AI.")
+      }
+
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { role: "AI", content: data.text },
+      ])
+    } catch (error) {
+      console.error(error);
+      setError(error.message || "Error: Something went wrong. Please try again.")
+    } finally {
+      setIsLoading(false)
     }
-
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { role: "AI", content: data.text },
-    ])
-
-    setIsLoading(false)
   };
 
   return (
@@ -52,6 +67,9 @@ export default function Home() {
           })}
           {isLoading && <p>Thinking...</p>}
         </div>
+        {error && <div className="text-red-500 text-sm px-2 py-1 bg-red-50 rounded w-full">
+          <p>{error}</p>
+        </div>}
         <div className="w-full h-30">
           <UserInput handleSubmit={handleSubmit} isLoading={isLoading}/>
         </div>
