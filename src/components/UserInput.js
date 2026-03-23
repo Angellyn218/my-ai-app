@@ -2,10 +2,10 @@ import React from 'react';
 
 const UserInput = ({ handleSubmit, isLoading }) => {
     return (
-        <div className="mx-auto min-w-full flex flex-col justify-center items-center">
+        <div className="mx-auto min-w-full flex flex-col justify-center items-center ">
             <form onSubmit={handleSubmit} className="w-full max-w-4xl mb-6">
                 <div className="space-y-2 w-full">
-                    <div className="border border-gray-900/10 p-6">
+                    <div className="border border-gray-900/10 p-6 bg-gray-200">
                         <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                             <div className="sm:col-span-6">
                                 <label htmlFor='username' className="block text-sm/6 font-medium text-gray-900">Message</label>
