@@ -19,7 +19,7 @@ export default function Home() {
       {/* Main Chat Area */}
       <main className="flex flex-1 w-full max-w-4xl flex-col items-center justify-between py-2 px-2 bg-white dark:bg-black sm:items-start">
         {/* Chat Area with Messages */}
-        <div className="max-h-110 overflow-y-auto p-4  w-full">
+        <div className="h-110 overflow-y-auto p-4  w-full">
           {messages.map(({ role, content }, idx ) => {
             return (<Message text={content} role={role} key={idx} id={`${idx}`}/>)
           })}
