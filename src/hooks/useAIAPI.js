@@ -26,10 +26,11 @@ export function useAIAPI() {
         }
 
         // Add user message
-        setMessages((prevMessages) => [
-            ...prevMessages,
+        const updatedMessages = [
+            ...messages,
             { role: "User", content: userInput }
-        ])
+        ];
+        setMessages(updatedMessages)
 
         // Reset input form to empty
         setInput("");
@@ -41,7 +42,7 @@ export function useAIAPI() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 
-                input: userInput
+                    messages: updatedMessages
                 }),
             });
 
@@ -68,6 +69,10 @@ export function useAIAPI() {
         } catch (error) {
             console.error(error);
             setError(error.message || "Error: Something went wrong. Please try again.")
+            // Remove user message when error occurs
+            if (updatedMessages[updatedMessages.length - 1]?.role === "User") {
+                setMessages(prevMessages => prevMessages.slice(0, -1));
+            }
 
         // Set loading to false
         } finally {
