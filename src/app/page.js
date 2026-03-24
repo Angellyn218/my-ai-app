@@ -1,11 +1,11 @@
 'use client'
 import Message from "@/components/Message";
-import UserInput from "@/components/UserInput";
+import UserInputForm from "@/components/UserInputForm";
 import { useAIAPI } from "@/hooks/useAIAPI";
 
 export default function Home() {
   // React hook used to call Google Gemini API on submit
-  const { messages, input, setInput, isLoading, error, handleSubmit } = useAIAPI()
+  const { messages, input, setInput, isLoading, error, handleSubmit, handleReset } = useAIAPI()
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -25,7 +25,7 @@ export default function Home() {
         </div>}
         {/* User Input Box */}
         <div className="w-full h-30">
-          <UserInput handleSubmit={handleSubmit} isLoading={isLoading} inputValue={input} setInput={setInput}/>
+          <UserInputForm isLoading={isLoading} inputValue={input} setInput={setInput} clearButtonVisible={messages.length > 0} handleSubmit={handleSubmit} handleReset={handleReset}/>
         </div>
       </main>
     </div>

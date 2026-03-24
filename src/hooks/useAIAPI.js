@@ -68,18 +68,27 @@ export function useAIAPI() {
         } catch (error) {
             console.error(error);
             setError(error.message || "Error: Something went wrong. Please try again.")
-            
+
         // Set loading to false
         } finally {
             setIsLoading(false)
         }
     };
+
+    // Function for handling clear chat button
+    const handleReset = () => {
+        setMessages([]);
+        setError(null);
+        setInput("");
+    };
+
     return ({ 
         messages, 
         input,
         setInput, 
         isLoading, 
         error, 
-        handleSubmit
+        handleSubmit,
+        handleReset
     });
 };
