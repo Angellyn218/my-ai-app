@@ -27,13 +27,13 @@ const Header = ({ mobileMenuOpen, setMobileMenuOpen }) => {
 
                 {/* Navbar on Desktop View */}
                 <div className="w-1/2 px-10 hidden lg:block">
-                <ul className="flex items-center justify-between font-semibold">
-                    {links.map(({ label, href }) => (
-                    <li key={label} className="hover:underline hover:font-bold">
-                        <a href={href}>{label}</a>
-                    </li>
-                    ))}
-                </ul>
+                    <ul className="flex items-center justify-between font-semibold">
+                        {links.map(({ label, href }) => (
+                        <li key={label} className="hover:underline hover:font-bold">
+                            <a href={href}>{label}</a>
+                        </li>
+                        ))}
+                    </ul>
                 </div>
 
                 {/* Important User Links on Desktop View */}

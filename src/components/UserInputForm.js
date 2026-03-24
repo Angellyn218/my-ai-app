@@ -17,7 +17,7 @@ const UserInputForm = ({ isLoading, inputValue, setInput, clearButtonVisible, ha
                 </div>   
             </form>
         </div>
-    )
+    );
 }
 
 export default UserInputForm;

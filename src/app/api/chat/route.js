@@ -12,7 +12,7 @@ export async function POST(req) {
 
         // If messages not delivered as expected
         if (!messages || !Array.isArray(messages) || messages.length === 0) {
-            return errorResponse("No messages provided.", 400)
+            return errorResponse("No messages provided.", 400);
         }
 
         // Call to model
@@ -28,7 +28,7 @@ export async function POST(req) {
 
         // No content returned
         if (!text) {
-            errorResponse("No response from the AI", 500)
+            errorResponse("No response from the AI", 500);
         }
         
         // Expected response

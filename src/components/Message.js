@@ -8,7 +8,7 @@ const Message = ( { text, role } ) => {
             {/* Text Content */}
             <p className='sm:px-4'>{text}</p>
         </div>
-    )
+    );
 }
 
 export default Message;

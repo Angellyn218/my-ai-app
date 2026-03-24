@@ -16,13 +16,13 @@ export function useAIAPI() {
         setIsLoading(true);
 
         // Grab value from user input
-        const userInput = input.trim()
+        const userInput = input.trim();
         
         // Input empty error
         if (!userInput) {
-        setError("Please enter a message");
-        setIsLoading(false);
-        return;
+            setError("Please enter a message");
+            setIsLoading(false);
+            return;
         }
 
         // Add user message
@@ -30,7 +30,7 @@ export function useAIAPI() {
             ...messages,
             { role: "User", content: userInput }
         ];
-        setMessages(updatedMessages)
+        setMessages(updatedMessages);
 
         // Reset input form to empty
         setInput("");
@@ -51,19 +51,19 @@ export function useAIAPI() {
 
             // Error: Response not ok from API
             if (!response.ok) {
-                throw new Error(data?.error || `Server error: ${response.status}.`)
+                throw new Error(data?.error || `Server error: ${response.status}.`);
             }
 
             // Error: Empty text from AI
             if (!data.text) {
-                throw new Error("Error: No response from the AI.")
+                throw new Error("Error: No response from the AI.");
             }
 
             // Add AI response to messages
             setMessages((prevMessages) => [
                 ...prevMessages,
                 { role: "AI", content: data.text },
-            ])
+            ]);
 
         // Error: display error messages
         } catch (error) {
@@ -72,11 +72,11 @@ export function useAIAPI() {
             // Remove user message when error occurs
             if (updatedMessages[updatedMessages.length - 1]?.role === "User") {
                 setMessages(prevMessages => prevMessages.slice(0, -1));
-            }
+            };
 
         // Set loading to false
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
         }
     };
 
